@@ -1,0 +1,16 @@
+# templates/clusterrolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: security-clusterrolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: security-clusterrole
+subjects:
+  - kind: ServiceAccount
+    name: tcss-agent
+    namespace: tcss
+  - kind: User
+    name: tcss
+    apiGroup: rbac.authorization.k8s.io

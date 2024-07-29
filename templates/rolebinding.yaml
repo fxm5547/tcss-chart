@@ -1,0 +1,15 @@
+# templates/rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: tcss-admin-rb
+  namespace: tcss
+subjects:
+  - kind: ServiceAccount
+    name: tcss-agent
+    namespace: tcss
+    apiGroup: ""
+roleRef:
+  kind: Role
+  name: tcss-admin
+  apiGroup: rbac.authorization.k8s.io

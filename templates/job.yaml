@@ -1,0 +1,43 @@
+# templates/job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: init-tcss-agent
+  namespace: tcss
+spec:
+  template:
+    spec:
+      serviceAccountName: tcss-agent
+      containers:
+        - image: ccr.ccs.tencentyun.com/yunjing_agent/agent:latest
+          imagePullPolicy: Always
+          name: init-tcss-agent
+          command: ["/home/work/yunjing-agent"]
+          args: ["-token", "{{ .Values.token }}", "-vip", "{{ .Values.vip }}", "-cc"]
+          resources:
+            limits:
+              cpu: 100m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          env:
+            - name: user_tags
+              value: "default"
+            - name: k8s_name
+              value: "{{ .Values.k8s_name }}"
+            - name: appid
+              value: "{{ .Values.appid }}"
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /run/secrets/kubernetes.io/tcss-agent
+              name: token-projection
+      securityContext: {}
+      hostPID: true
+      restartPolicy: Never
+      volumes:
+        - name: token-projection
+          secret:
+            secretName: tcss-agent-secret
+  backoffLimit: 5

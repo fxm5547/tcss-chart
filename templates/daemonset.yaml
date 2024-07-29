@@ -1,0 +1,47 @@
+# templates/daemonset.yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    k8s-app: yunjing-agent
+  name: yunjing-agent
+  namespace: kube-system
+  annotations:
+    config.kubernetes.io/depends-on: batch/v1/namespaces/tcss/jobs/init-tcss-secrets
+spec:
+  selector:
+    matchLabels:
+      k8s-app: yunjing-agent
+  template:
+    metadata:
+      annotations:
+        eks.tke.cloud.tencent.com/ds-injection: "true"
+      labels:
+        k8s-app: yunjing-agent
+    spec:
+      tolerations:
+        - operator: Exists
+      containers:
+        - image: ccr.ccs.tencentyun.com/yunjing_agent/agent:latest
+          imagePullPolicy: Always
+          name: yunjing-agent
+          command: ["/home/work/yunjing-agent"]
+          args: ["-d", "-token", "{{ .Values.token }}", "-vip", "{{ .Values.vip }}"]
+          resources:
+            limits:
+              cpu: 250m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          securityContext:
+            privileged: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      hostNetwork: true
+      hostPID: true

@@ -1,0 +1,22 @@
+# templates/clusterrole.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: security-clusterrole
+rules:
+  - apiGroups: ["", "v1"]
+    resources: ["namespaces", "pods", "nodes", "services", "serviceaccounts", "configmaps", "componentstatuses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apps","batch","extensions","rbac.authorization.k8s.io","networking.k8s.io","cilium.io"]
+    resources: ["*"]
+    verbs: ["get", "list","watch"]
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["networkpolicies"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["apiextensions.k8s.io"]
+    resources: ["customresourcedefinitions"]
+    verbs: ["list", "get","create"]
+  - apiGroups: ["apiextensions.k8s.io"]
+    resourceNames: ["tracingpolicies.cilium.io", "tracingpoliciesnamespaced.cilium.io"]
+    resources: ["customresourcedefinitions"]
+    verbs: ["list", "get", "update"]

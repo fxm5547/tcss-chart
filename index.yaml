@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  tcss-chart:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2024-07-29T21:59:38.151235+08:00"
+    description: A Helm chart for deploying TCSS components
+    digest: a475cbbc1c52cc59f3af56fcdc58482bde18f0c9d96a12ec787f7fce92489821
+    name: tcss-chart
+    type: application
+    urls:
+    - https://github.com/fxm5547/tcss-chart.git/tcss-chart-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-07-29T21:59:38.149456+08:00"

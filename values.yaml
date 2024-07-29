@@ -1,0 +1,5 @@
+# values.yaml
+appid: ""                   # 腾讯云账号的appid，在yaml里搜索 appid: 找到对应的值
+token: ""                   # 12位的字符串，在yaml里搜索 args: ["-token" 找到对应的值
+vip: ""                     # ipV4，在yaml里搜索 args: ["-vip" 找到对应的值
+k8s_name: ""                # 集群名称，可自定义，在yaml里搜索 name: k8s_name 找到对应的值

@@ -1,0 +1,46 @@
+# templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    k8s-app: tcss-asset
+  name: tcss-asset
+  namespace: tcss
+spec:
+  selector:
+    matchLabels:
+      k8s-app: tcss-asset
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        k8s-app: tcss-asset
+      annotations:
+        eks.tke.cloud.tencent.com/ds-injection: "true"
+    spec:
+      serviceAccountName: tcss-agent
+      tolerations:
+        - operator: Exists
+      containers:
+        - image: ccr.ccs.tencentyun.com/yunjing_agent/agent:latest
+          imagePullPolicy: Always
+          name: tcss-asset
+          command: ["/home/work/yunjing-agent"]
+          args: ["-asset"]
+          resources:
+            limits:
+              cpu: 100m
+              memory: 256Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi
+          securityContext:
+            privileged: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      hostPID: true
