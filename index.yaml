@@ -9,6 +9,6 @@ entries:
     name: tcss-chart
     type: application
     urls:
-    - https://github.com/fxm5547/tcss-chart.git/tcss-chart-0.1.0.tgz
+    - https://fxm5547.github.io/tcss-chart/tcss-chart-0.1.0.tgz
     version: 0.1.0
 generated: "2024-07-29T21:59:38.149456+08:00"
