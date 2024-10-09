@@ -5,7 +5,7 @@ metadata:
   labels:
     k8s-app: yunjing-agent
   name: yunjing-agent
-  namespace: kube-system
+  namespace: tcss
   annotations:
     config.kubernetes.io/depends-on: batch/v1/namespaces/tcss/jobs/init-tcss-secrets
 spec:

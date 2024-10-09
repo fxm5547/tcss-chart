@@ -2,6 +2,6 @@
 apiVersion: v2
 name: tcss-chart
 description: A Helm chart for deploying TCSS components
-version: 0.1.0
+version: 0.1.1
 appVersion: "1.0"
 type: application
